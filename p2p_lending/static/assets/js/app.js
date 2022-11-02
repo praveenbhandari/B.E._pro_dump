@@ -51,11 +51,11 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // document.querySelector('#test').addEventListener('click', () => add_user());
-    document.querySelector('#test').addEventListener('click', () => getRegisterData());
     document.querySelector('#add_user').addEventListener('click', () => add_user());
     document.querySelector('#connectt_user').addEventListener('click', () => connectt());
     document.querySelector('#get_borower').addEventListener('click', () => get_borower());
     document.querySelector('#get_lender').addEventListener('click', () => get_lender());
+    document.querySelector('#test').addEventListener('click', () => getRegisterData());
 });
 
 var web3 = new Web3(window.ethereum);
@@ -63,7 +63,7 @@ var web3 = new Web3(window.ethereum);
 var acc = null;
 // var key
 
-var contract_addr = "0xd9145CCE52D386f254917e481eB44e9943F39138"
+var contract_addr = "0x083cf0e1950a732Ce71A3a96c740923DB41a31C4"
 
 
 const connectt = async () => {
@@ -167,7 +167,7 @@ function call_contract(contract_addrr) {
 
 function get_borower() {
     console.log("borower")
-    // call_contract(contract_addr);
+    call_contract(contract_addr);
     console.log("agent : " + AgentContract);
     console.log("acc : " + acc);
     // AgentContract.methods.get_borrower_list().call(function (error, results) {
@@ -194,18 +194,10 @@ function get_borower() {
     AgentContract.methods.get_borrower_list().call(acc, { gas: 1000000 }, function (error, results) {
         if (!error) {
             console.log("ew ress : " + results);
-            var count = 1;
+
             results.forEach(result => {
                 get_bb(result)
-                const b_List = document.createElement('tr');
-                b_List.innerHTML = `
-                        <th scope="row">${count}</th>
-                        <td>${result}</td>
-                        <td>Otto</td>
-                `;
 
-                document.querySelector('#borrowerLists').append(b_List);
-                count = count + 1;
             })
         }
         else {
@@ -236,7 +228,7 @@ function add_user(namee, email, pos, aadhar, pan, score) {
     //     console.log(receipt);
     // })
 
-    AgentContract.methods.user("namee", "email", 1, "aadhar", "pan", 11111).send({ from: acc }).on("confirmation", function (cnfno, receipt) {
+    AgentContract.methods.user(namee, email, parseInt(pos), aadhar, pan, 11111).send({ from: acc }).on("confirmation", function (cnfno, receipt) {
         console.log("cnf : " + cnfno); console.log("receipt : " + receipt);
     }).on('receipt', function (receipt) {
         // receipt example
@@ -246,12 +238,23 @@ function add_user(namee, email, pos, aadhar, pan, score) {
 
 
 function get_bb(id) {
-    console.log(id)
+
     console.log("borower name")
-    console.log(AgentContract);
-    AgentContract.methods.get_borrower.call(acc, { gas: 1000000 }, function (error, results) {
+    console.log(id)
+    // console.log(AgentContract);
+    AgentContract.methods.get_borrower(id).call(acc, { gas: 1000000 }, function (error, results) {
         if (!error) {
-            console.log(results);
+            console.log("resssssssssssssssssss : " + results[0] + " " + results[1] + " " + results[2] + " " + results[3] + " " + results[4]);
+            var count = 1;
+            const b_List = document.createElement('tr');
+            b_List.innerHTML = `
+                        <th scope="row">${count}</th>
+                        <td>${results[0]}</td>
+                        <td>${results[1]}</td>
+                `;
+
+            document.querySelector('#borrowerLists').append(b_List);
+            count = count + 1;
         }
     })
 }
@@ -275,6 +278,7 @@ function getRegisterData() {
     console.log("roott: " + user_type);
     if (user_type == "borrower") {
         pos = 0;
+        console.log("POS:" + pos);
     }
     else { pos = 1; }
     console.log(firstName, lastName, emailAdd, pos, aadharNo, pan, 1121);

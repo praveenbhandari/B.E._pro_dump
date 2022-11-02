@@ -84,6 +84,8 @@ def index(request):
     return render(request, "app/index.html")
 
 # Apply Form function
+
+
 @login_required(login_url="login")
 @allowed_users(allowed_rolls=["borrower"])
 def applyLoanFrom(request):
