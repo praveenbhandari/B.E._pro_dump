@@ -50,16 +50,20 @@
 // var Web3 = require('./lib/web3');
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('#te').addEventListener('click', () => getRegisterData());
-    document.querySelector('#apply_l').addEventListener('click', () => apply_loan());
-    document.querySelector('#aa').addEventListener('click', () => apply_loan());
+    try {
+        document.querySelector('#te').addEventListener('click', () => getRegisterData());
+        document.querySelector('#apply_l').addEventListener('click', () => apply_loan());
+        document.querySelector('#aa').addEventListener('click', () => apply_loan());
 
-    document.querySelector('#register').addEventListener('click', () => getRegisterData());
-    document.querySelector('#add_user').addEventListener('click', () => add_user());
-    document.querySelector('#connectt_user').addEventListener('click', () => connectt());
-    document.querySelector('#get_borower').addEventListener('click', () => get_loan_data());
-    document.querySelector('#get_lender').addEventListener('click', () => get_lender());
+        document.querySelector('#register').addEventListener('click', () => getRegisterData());
+        document.querySelector('#add_user').addEventListener('click', () => add_user());
+        document.querySelector('#connectt_user').addEventListener('click', () => connectt());
+        document.querySelector('#get_borower').addEventListener('click', () => get_borower());
+        document.querySelector('#get_lender').addEventListener('click', () => get_lender());
+    }
+    catch (e) { console.log("ee", e) }
 });
+
 
 var web3 = new Web3(window.ethereum);
 // var Contract = require('web3-eth-contract');
@@ -67,7 +71,10 @@ var acc = null;
 // var key 0xcC0D6FEaC2dbb9bFa7F5dc438F0CE089757A1e0c  0x00FE0b15775bCa92f7414D7aD9a1A0426b3C347F 0xB59fb2cC2789B805A0341C13751d56c657A938e4 0x21dac808379CceD51ce7D15bFb9DACbF895F1064
 
 var contract_addr = "0xd3aB70830C7499648d6c871b7F572F2bc6EC6D99"
+window.onload = function () {
+    connectt();
 
+};
 
 const connectt = async () => {
     console.log("connectt")
@@ -77,7 +84,7 @@ const connectt = async () => {
 
         var accounts = await web3.eth.getAccounts();
         acc = accounts[0];
-        // console.log(acc);
+        console.log("if ", acc);
         (async () => {
             // 0x6F61bd9CEb8A8291b20dC90f11cE7D37d77fDE92
             // 0x18fc00dDD817620c0Cb02516Fd73E8658B659e13
@@ -86,7 +93,7 @@ const connectt = async () => {
 
     }
     else {
-        // console.log("else")
+        console.log("else")
         // res.write(acc)
     }
     get_borower()
@@ -146,7 +153,8 @@ function call_contract(contract_addrr) {
     TODO://ask for payment metamask ka
 
     // acc = web3.eth.selectedAddress;
-    // console.log("aaaaa " + acc);
+    console.log("aaaaa " + acc);
+
     // acc = acc.toLocaleLowerCase();
     AgentContract.methods.getBalance().call(acc, { gas: 1000000 }, function (error, results) {
         if (!error) {
@@ -268,11 +276,11 @@ function get_bb(id) {
                         <th scope="row">${count}</th>
                         <td>${results[0]}</td>
                         <td>${results[9]}</td>
+                        <td>${results[5]}</td>
                         <td>${results[6]}</td>
-                        <td>${results[10]}</td>
                 `;
 
-            // document.querySelector('#borrowerLists').append(b_List);
+            document.querySelector('#borrowerLists').append(b_List);
             count = count + 1;
 
         }
@@ -339,14 +347,16 @@ function get_loan_data(addre) {
             // apply_loan(results[0], results[3], results[4]);
             // console.log("re " + results);
             console.log("aaplyyy_L : " + results[0] + " " + results[1] + " " + results[2] + " " + results[3] + " " + results[4] + " " + results[5] + " " + results[6] + " " + results[7] + " " + results[8] + " " + results[9] + " " + results[10] + " " + results[11]);
-
-            document.getElementById("name").innerHTML = results[0];
-            document.getElementById("email").innerHTML = results[3];
-            document.getElementById("phone").innerHTML = results[8];
-            document.getElementById("aadhar").innerHTML = results[1];
-            document.getElementById("pan").innerHTML = results[2];
-            document.getElementById("a_income").innerHTML = results[7];
-            document.getElementById("dependents").innerHTML = results[8];
+            try {
+                document.getElementById("name").innerHTML = results[0];
+                document.getElementById("email").innerHTML = results[3];
+                document.getElementById("phone").innerHTML = results[8];
+                document.getElementById("aadhar").innerHTML = results[1];
+                document.getElementById("pan").innerHTML = results[2];
+                document.getElementById("a_income").innerHTML = results[7];
+                document.getElementById("dependents").innerHTML = results[8];
+            }
+            catch (e) { console.log("err : " + e) }
             // document.getElementById("name").innerHTML = results[0];
 
 

@@ -142,8 +142,7 @@ contract mini {
             uint256,
             string memory,
             uint256,
-            uint256,
-            uint256
+            uint256,uint256
         )
     {
         // if(keccak256(patientInfo[addr].name) == keccak256(""))revert();
@@ -153,12 +152,12 @@ contract mini {
             bb.aadhar,
             bb.pan,
             bb.email,
-            bb.score,
+           bb.score,
             bb.loan_amountt,
             bb.l_purpose,
-            bb.a_income,
-            bb.no_of_dependents,
-            bb.phone
+           bb.a_income,
+           bb.no_of_dependents,
+           bb.phone
         );
     }
 
