@@ -50,7 +50,9 @@
 // var Web3 = require('./lib/web3');
 
 document.addEventListener('DOMContentLoaded', function () {
-    // document.querySelector('#test').addEventListener('click', () => add_user());
+    document.querySelector('#te').addEventListener('click', () => getRegisterData());
+    // document.querySelector('#apply_l').addEventListener('click', () => apply_loan());
+    // document.querySelector('#aa').addEventListener('click', () => apply_loan());
 
     document.querySelector('#register').addEventListener('click', () => getRegisterData());
     document.querySelector('#add_user').addEventListener('click', () => add_user());
@@ -62,9 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
 var web3 = new Web3(window.ethereum);
 // var Contract = require('web3-eth-contract');
 var acc = null;
-// var key
+// var key 0xcC0D6FEaC2dbb9bFa7F5dc438F0CE089757A1e0c
 
-var contract_addr = "0xcC0D6FEaC2dbb9bFa7F5dc438F0CE089757A1e0c"
+var contract_addr = "0x00FE0b15775bCa92f7414D7aD9a1A0426b3C347F"
 
 
 const connectt = async () => {
@@ -263,6 +265,7 @@ function get_bb(id) {
 
 
 function getRegisterData() {
+    console.log("hmmm");
     var firstName = document.getElementById('firstName').value;
     var lastName = document.getElementById('lastName').value;
     var emailAdd = document.getElementById('emailAdd').value;
@@ -291,6 +294,11 @@ function getRegisterData() {
     else { pos = 1; }
     console.log(firstName, lastName, emailAdd, pos, aadharNo, pan, 1121, phone, gender, a_incom, dependents);
     add_user(firstName + " " + lastName, emailAdd, pos, aadharNo, pan, 1211, phone, gender, a_incom, dependents);
+}
+
+
+function apply_loan() {
+    console.log("loan");
 }
 
 // TODO:infura/quicknode
