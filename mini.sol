@@ -6,26 +6,32 @@ pragma solidity >=0.8.16;
 contract mini {
     uint256 amt;
     uint256 val;
-uint256 intrest=2;
+    uint256 intrest = 2;
     // constructor() public {}
 
     struct borower {
-        uint score;
+        uint256 score;
         string name;
         string email;
-        address[] lenders;
+        address[] borrower_list;
         string aadhar;
         string pan;
+        uint256 phone;
+        string gender;
+        uint256 a_income;
+        uint256 no_of_dependents;
+        uint256 loan_amountt;
+        string l_purpose;
     }
 
     struct lender {
         string name;
         string aadhar;
-        address[] borrowerlist;
+        address[] lender_list;
         string pan;
         string email;
     }
-
+    address[] loans;
     address[] public borower_list;
     address[] public lender_list;
 
@@ -38,19 +44,38 @@ uint256 intrest=2;
     //     val=1000;
     // }
     // mapping(address => uint) borower_addr,lender_addr;
-// TODO:ABI bytecode in js
+    // TODO:ABI bytecode in js
     uint256 PAISA = 10 * 1e10;
     uint256 aa = 1;
 
-    function user(string memory name,string memory email,uint256 pos,string memory aadhar,string memory pan,uint256 score) public returns (string memory) {
+    // function user(string memory name,string memory email,uint256 pos,string memory aadhar,string memory pan,uint256 score,uint256 a_income,uint256 no_depends,string memory gender,uint256 phone_no) public returns (string memory) {
+    function user(
+        string memory name,
+        string memory email,
+        uint256 pos,
+        string memory aadhar,
+        string memory pan,
+        uint256 score,
+        uint256 phone,
+        string memory gender,
+        uint256 a_income,
+        uint256 no_of_depeden
+    ) public returns (string memory) {
+        // TODO: add loan wala in function
         address addr = msg.sender;
         if (pos == 0) {
             borower memory b;
             b.name = name;
             b.aadhar = aadhar;
             b.email = email;
-            b.pan=pan;
-            b.score=score;
+            b.pan = pan;
+            b.score = score;
+            b.phone = phone;
+            b.gender = gender;
+            b.a_income = a_income;
+            b.no_of_dependents = no_of_depeden;
+            b.loan_amountt = 0;
+            b.l_purpose = "";
             borowerInfo[msg.sender] = b;
             borower_list.push(addr);
             return name;
@@ -59,7 +84,7 @@ uint256 intrest=2;
             lenderInfo[addr].aadhar = aadhar;
             lenderInfo[addr].pan = pan;
             lenderInfo[addr].email = email;
-            
+
             lender_list.push(addr);
             return name;
         } else {
@@ -67,7 +92,11 @@ uint256 intrest=2;
         }
     }
 
-    function sendmoney(address payable to,uint256 paisaa) public payable returns (uint256) {
+    function sendmoney(address payable to, uint256 paisaa)
+        public
+        payable
+        returns (uint256)
+    {
         // amt=amountt
         // amt=amountt;
         // return amountt;
@@ -85,14 +114,52 @@ uint256 intrest=2;
         return (aa, block.timestamp);
     }
 
-    function get_borrower(address addr)public view returns (string memory, string memory,string memory,string memory,uint256 ){
-        // if(keccak256(patientInfo[addr].name) == keccak256(""))revert();
-        return (borowerInfo[addr].name, borowerInfo[addr].aadhar, borowerInfo[addr].pan, borowerInfo[addr].email, borowerInfo[addr].score);
+    function l_l() public view returns (address[] memory) {
+        return loans;
     }
 
-    function get_lender(address addr) view public  returns (string memory, string memory,string memory,string memory) {
+    function get_borrower(address addr)
+        public
+        view
+        returns (
+            string memory,
+            string memory,
+            string memory,
+            string memory,
+            uint256,
+            uint256,
+            string memory
+        )
+    {
+        // if(keccak256(patientInfo[addr].name) == keccak256(""))revert();
+        return (
+            borowerInfo[addr].name,
+            borowerInfo[addr].aadhar,
+            borowerInfo[addr].pan,
+            borowerInfo[addr].email,
+            borowerInfo[addr].score,
+            borowerInfo[addr].loan_amountt,
+            borowerInfo[addr].l_purpose
+        );
+    }
+
+    function get_lender(address addr)
+        public
+        view
+        returns (
+            string memory,
+            string memory,
+            string memory,
+            string memory
+        )
+    {
         // if(keccak256(doctorInfo[addr].name)==keccak256(""))revert();
-        return (lenderInfo[addr].name, lenderInfo[addr].email, lenderInfo[addr].pan, lenderInfo[addr].aadhar);
+        return (
+            lenderInfo[addr].name,
+            lenderInfo[addr].email,
+            lenderInfo[addr].pan,
+            lenderInfo[addr].aadhar
+        );
     }
 
     function get_borrower_list() public view returns (address[] memory) {
@@ -101,6 +168,19 @@ uint256 intrest=2;
 
     function get_lender_list() public view returns (address[] memory) {
         return lender_list;
+    }
+
+    function reg_loan(
+        address acc_address,
+        uint256 l_amount,
+        string memory purpose
+    ) public {
+        // string memory a=keccak256(l_amount+purpose);
+        borowerInfo[acc_address].loan_amountt = l_amount;
+        borowerInfo[acc_address].l_purpose = purpose;
+        loans.push(acc_address);
+        // loans.push(keccak256(abi.encodePacked(string.concat(l_amount,purpose))));
+        // return keccak256(l_amount+purpose);
     }
 
     // function getprice()public view returns(uint256){

@@ -47,7 +47,17 @@ contract mini {
     uint256 aa = 1;
 
     // function user(string memory name, string memory email, uint256 pos, string memory aadhar, string memory pan, uint256 score, uint256 a_income, uint256 no_depends, string memory gender, uint256 phone_no) public returns(string memory) {
-        function user(string memory name, string memory email, uint256 pos, string memory aadhar, string memory pan, uint256 score) public returns(string memory) {
+        function user(
+            string memory name,
+            string memory email,
+            uint256 pos,
+            string memory aadhar,
+            string memory pan,
+            uint256 score,
+            uint256 phone,
+            string memory gender,
+            uint256 a_income,
+            uint256 no_of_depeden) public returns(string memory) {
             // TODO: add loan wala in function
             address addr = msg.sender;
             if (pos == 0) {
@@ -57,6 +67,10 @@ contract mini {
                 b.email = email;
                 b.pan = pan;
                 b.score = score;
+                b.phone = phone;
+                b.gender = gender;
+                b.a_income = a_income;
+                b.no_of_dependents = no_of_depeden;
                 b.loan_amountt = 0;
                 b.l_purpose = "";
                 borowerInfo[msg.sender] = b;
