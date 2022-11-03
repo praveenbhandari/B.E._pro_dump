@@ -10,6 +10,7 @@ urlpatterns = [
     path("about", views.about, name="about"),
     path("services", views.services, name="services"),
     path("contact", views.contact, name="contact"),
-    path("applyLoan", views.applyLoanFrom, name="applyLoan"), # Apply Loan Form
-    path("borrowerList", views.borrowerList, name="borrowerList"), # order lists
+    path("applyLoan", views.applyLoanFrom, name="applyLoan"),  # Apply Loan Form
+    path("borrowerList", views.borrowerList,
+         name="borrowerList"),  # order lists
 ]
