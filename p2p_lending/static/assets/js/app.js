@@ -51,15 +51,23 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     try {
-        document.querySelector('#te').addEventListener('click', () => getRegisterData());
-        document.querySelector('#apply_l').addEventListener('click', () => apply_loan());
-        document.querySelector('#aa').addEventListener('click', () => apply_loan());
 
-        document.querySelector('#register').addEventListener('click', () => getRegisterData());
-        document.querySelector('#add_user').addEventListener('click', () => add_user());
-        document.querySelector('#connectt_user').addEventListener('click', () => connectt());
-        document.querySelector('#get_borower').addEventListener('click', () => get_borower());
-        document.querySelector('#get_lender').addEventListener('click', () => get_lender());
+        var a = document.querySelector('#register');
+        if (a) { a.addEventListener('click', () => getRegisterData()); }
+        var b = document.querySelector('#add_user');
+        if (b) { b.addEventListener('click', () => add_user()); }
+        var c = document.querySelector('#connectt_user');
+        if (c) { c.addEventListener('click', () => connectt()); }
+
+        // document.querySelector('#get_lender').addEventListener('click', () => get_lender());
+        var d = document.querySelector('#te');
+        if (d) { d.addEventListener('click', () => getRegisterData()); }
+        var e = document.querySelector('#apply_l');
+        if (e) { e.addEventListener('click', () => apply_loan()); }
+        var f = document.querySelector('#aa');
+        if (f) { f.addEventListener('click', () => apply_loan()); }
+        var g = document.querySelector('#get_borower');
+        if (g) { g.addEventListener('click', () => get_borower()); }
     }
     catch (e) { console.log("ee", e) }
 });
@@ -141,6 +149,7 @@ var AgentContract;
 
 function call_contract(contract_addrr) {
     AgentContract = new web3.eth.Contract(abi, contract_addrr);
+
     // contractInstance = AgentContract.at(contract_addrr);
     // web3.eth.defaultAccount = web3.currentProvider.selectedAddress;
     // console.log("Web3 Connected:" + window.web3.eth.defaultAccount);
@@ -202,8 +211,13 @@ function get_borower() {
     //         console.log(results); console.log(error)
     //     }
     // });
+    // call l_l
     AgentContract.methods.get_borrower_list().call(acc, { gas: 1000000 }, function (error, results) {
+
         if (!error) {
+            // results.forEach(result => {
+            //     console.log(result);
+            //     if (result == acc) {
             console.log("borrowerr ress : " + results);
             get_loan_data(acc);
 
@@ -212,6 +226,11 @@ function get_borower() {
                 get_bb(result);
 
             });
+            // }
+            // get_bb(result);
+
+            // });
+
         }
         else {
             // console.log("else res :" + results);
@@ -272,7 +291,8 @@ function get_bb(id) {
 
             var count = 1;
             const b_List = document.createElement('tr');
-            b_List.innerHTML = `
+            if (b_List) {
+                b_List.innerHTML = `
                         <th scope="row">${count}</th>
                         <td>${results[0]}</td>
                         <td>${results[9]}</td>
@@ -280,9 +300,10 @@ function get_bb(id) {
                         <td>${results[6]}</td>
                 `;
 
-            document.querySelector('#borrowerLists').append(b_List);
-            count = count + 1;
-
+                var ss = document.querySelector('#borrowerLists');
+                if (ss) { ss.append(b_List); }
+                count = count + 1;
+            }
         }
     })
     // get_loan_data(id);
