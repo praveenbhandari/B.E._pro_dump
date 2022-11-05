@@ -164,12 +164,12 @@ function call_contract(contract_addrr) {
     // acc = web3.eth.selectedAddress;
     console.log("aaaaa " + acc);
 
-    // acc = acc.toLocaleLowerCase();
-    AgentContract.methods.getBalance().call(acc, { gas: 1000000 }, function (error, results) {
-        if (!error) {
-            console.log(results);
-        }
-    })
+    // // acc = acc.toLocaleLowerCase();
+    // AgentContract.methods.getBalance().call(acc, { gas: 1000000 }, function (error, results) {
+    //     if (!error) {
+    //         console.log(results);
+    //     }
+    // })
     // console.log("hmm : " + AgentContract.methods.sendmoney(1121) + "  :: " + acc)
     // console.log(AgentContract.methods.sendmoney(110).call({ from: '0xBea3DbCC78b63Be254d9877CA75092C5a26c0097' }, function (error, results) {
     //     console.log("ress hehe : " + results);

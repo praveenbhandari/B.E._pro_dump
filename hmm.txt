@@ -1,0 +1,47 @@
+
+polygon-edge secrets init --data-dir n-1
+polygon-edge secrets init --data-dir n-2
+polygon-edge secrets init --data-dir n-3
+polygon-edge secrets init --data-dir n-4
+
+N-1
+Public key (address) = 0x58Af701051AAbaF10D1Ba2f1a229A904cb8296d2
+BLS Public key       = 0x9517b8714fc1058249a2471863eae264e396f5696569ecf4266a7cbee13e3e86d35a9fd0319b58f6cb1e09f96dc04ef5
+Node ID              = 16Uiu2HAmFufPDiPCFFX35dtRjiunbJJvB11aLB2WMYbyuDEe5uBb
+
+N-2
+Public key (address) = 0x3C9fA60Df7af1984384D5E8C2eB9076f5C42ABbC
+BLS Public key       = 0xb684668178915c461e074e36bfacd7e59dd6e47ded462e952ab3bad10240b75383c2570d0b7ffdcf385c9b8fcd812809
+Node ID              = 16Uiu2HAm5bY83cP6B5um5wby3tDrAAkaF7jZyamqnZs7QAHeKkCC
+
+N-3
+Public key (address) = 0xB5C46141b7BC31E3d8282a0d1A54e3b64e759bf1
+BLS Public key       = 0xa08531ae0001f1716cf93f3e17f94ffd97ca0d3b5b57af2c0f58b817e047d17dbf7eec46933dedcfe6caffc7acdf9815
+Node ID              = 16Uiu2HAmPCsojeipmE9TSxJ2BfBxFULTTfnmFLKPMJZMRYup6Hom
+
+N-4
+Public key (address) = 0xc40037a6A958E521fA13C261D022fdb10fDB4e68
+BLS Public key       = 0x85a4aa69d89cbc34e988c5022536ec9252345a13f30f267ad4854182d3e03b12165505a8bfc7ebdc20f19df195464ac9
+Node ID              = 16Uiu2HAkwmrwCMgtAiFoBiEJLRBNGxNJanS4JzRbEm7H6ojxKFq5
+
+			
+polygon-edge genesis --consensus ibft --pos --bootnode /ip4/127.0.0.1/tcp/10001/p2p/16Uiu2HAmFufPDiPCFFX35dtRjiunbJJvB11aLB2WMYbyuDEe5uBb --bootnode /ip4/127.0.0.1/tcp/2001/p2p/16Uiu2HAm5bY83cP6B5um5wby3tDrAAkaF7jZyamqnZs7QAHeKkCC --premine=0x58Af701051AAbaF10D1Ba2f1a229A904cb8296d2:1000000000000000000000 --premine=0x3C9fA60Df7af1984384D5E8C2eB9076f5C42ABbC:1000000000000000000000 --premine=0xB5C46141b7BC31E3d8282a0d1A54e3b64e759bf1:1000000000000000000000 --premine=0xc40037a6A958E521fA13C261D022fdb10fDB4e68:1000000000000000000000   --ibft-validator 0x58Af701051AAbaF10D1Ba2f1a229A904cb8296d2:0x9517b8714fc1058249a2471863eae264e396f5696569ecf4266a7cbee13e3e86d35a9fd0319b58f6cb1e09f96dc04ef5 --ibft-validator 0x3C9fA60Df7af1984384D5E8C2eB9076f5C42ABbC:0xb684668178915c461e074e36bfacd7e59dd6e47ded462e952ab3bad10240b75383c2570d0b7ffdcf385c9b8fcd812809 --name mini_p --chain-id 3105
+
+--ibft-validator=0xFbF9b8ff6559e944F4E8738257BAA0DB9c870181:0xa86e2141d4cdd8952ee2c9a3c9398eb5f5bb784ec73f56dd2abbffbfae5ba0600e9eb98fa1948972b629fc774494833f --ibft-validator=0x89E7775429928516deA41A8e48D38A9813ED83C9:0x8e4901adf3d339f471a3017c9d24060f3115a9f09be2cbd378c55d8ba448dfa26512856fc88640de405bb5902e3d05fc --ibft-validator=0x3BC80f5285fd5e8Bfa960af6073Bda687e55198b:0x962fa96ab89a23a5a4406306b5eaeb08ffe810b8449ff61f5e8ce478a80623fb5a75327bbdb829881297fa358435c966 --name gdsc --chain-id 3105
+
+
+
+
+polygon-edge server --data-dir ./n-1 --chain genesis.json --grpc-address 127.0.0.1:10000 --libp2p 127.0.0.1:10001 --jsonrpc 127.0.0.1:10002 --seal
+
+polygon-edge server --data-dir ./n-2 --chain genesis.json --grpc-address 127.0.0.1:2000 --libp2p 127.0.0.1:2001 --jsonrpc 127.0.0.1:2002 --seal
+
+polygon-edge server --data-dir ./n-3 --chain genesis.json --grpc-address 127.0.0.1:30000 --libp2p 127.0.0.1:30001 --jsonrpc 127.0.0.1:30002 --seal
+
+polygon-edge server --data-dir ./n-4 --chain genesis.json --grpc-address 127.0.0.1:40000 --libp2p 127.0.0.1:40001 --jsonrpc 127.0.0.1:40002 --seal
+
+
+
+Install solc npm install -g solc
+Compile contract solcjs --abi contract.sol. This will create a contract_sol_contract.abi file in the same folder
+Use the generated abi file in the fs.readFileSync() statement
